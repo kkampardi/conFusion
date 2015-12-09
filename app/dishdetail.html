@@ -44,14 +44,23 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-9 col-xs-offset-1">
-              <h3>Customer Comments</h3>
-              <blockquote ng-repeat="comment in detCtrl.dish.comments">
+            <div class="col-xs-9 col-xs-offset-1" >
+              <div class="row">
+                <div class="col-sm-4"><h3 >Customer Comments</h3></div>
+                <div class="col-sm-8 searchform">
+                  <form  class="form-inline" role="form">
+                    <div class="form-group">
+                      <label for="inputsearch" class="control-label"> Short by:</label>
+                      <input ng-model="query" type="text">
+                    </div>
+                  </form>
+                </div>
+            </div>
+              <blockquote ng-repeat="comment in detCtrl.dish.comments | orderBy: query ">
                 <p>{{comment.rating}} Stars</p>
                 <p>{{comment.comment}}</p>
                 <footer>{{comment.author}}, {{comment.date | date: 'longDate'}}</footer>
               </blockquote>
-            </div>
         </div>
 
     </div>
