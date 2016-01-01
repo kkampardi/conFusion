@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     ngannotate = require('gulp-ng-annotate'),
     del = require('del');
+    es6 = require('es6-promise').polyfill();
 
 
     gulp.task('jshint', function() {
@@ -23,13 +24,13 @@ var gulp = require('gulp'),
     });
 
     gulp.task('usemin',['jshint'], function () {
-      return gulp.src('./app/dishdetail.html')
-          .pipe(usemin({
-            css:[minifycss(),rev()],
-            js: [ngannotate(),uglify(),rev()]
-          }))
-          .pipe(gulp.dest('dist/'));
-    });
+    return gulp.src('./app/**/*.html')
+        .pipe(usemin({
+          css:[minifycss(),rev()],
+          js: [ngannotate(),uglify(),rev()]
+        }))
+        .pipe(gulp.dest('dist/'));
+  });
 
     // Images
     gulp.task('imagemin', function() {
@@ -67,10 +68,10 @@ var gulp = require('gulp'),
        browserSync.init(files, {
           server: {
              baseDir: "dist",
-             index: "dishdetail.html"
+             index: "index.html"
           }
        });
-            // Watch any files in dist/, reload on change
+    // Watch any files in dist/, reload on change
       gulp.watch(['dist/**']).on('change', browserSync.reload);
         });
     // Clean
