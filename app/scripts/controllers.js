@@ -8,8 +8,13 @@ angular.module('confusionApp')
             $scope.filtText = '';
             $scope.showDetails = false;
 
-            $scope.dishes= menuFactory.getDishes();
-
+            $scope.dishes= {};
+            menuFactory.getDishes()
+            .then(
+                function(response) {
+                    $scope.dishes = response.data;
+                }
+            );
 
             $scope.select = function(setTab) {
                 $scope.tab = setTab;
@@ -69,10 +74,14 @@ angular.module('confusionApp')
         }])
 
         .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function($scope, $stateParams, menuFactory) {
-            console.log($stateParams);
-            var dish= menuFactory.getDish(parseInt($stateParams.id,10));
-            $scope.dish = dish;
-
+          $scope.dish = {};
+          menuFactory.getDish(parseInt($stateParams.id,10))
+          .then(
+              function(response){
+                  $scope.dish = response.data;
+                  $scope.showDish=true;
+              }
+          );
         }])
 
         .controller('DishCommentController', ['$scope', function($scope) {
@@ -93,20 +102,25 @@ angular.module('confusionApp')
         }])
 
         // implement the IndexController and About Controller here
-        .controller('IndexController', ['$scope', '$stateParams', 'menuFactory', 'corporateFactory',
+        .controller('IndexController',
+        ['$scope', '$stateParams', 'menuFactory', 'corporateFactory',
         function($scope, $stateParams, menuFactory, corporateFactory){
 
-          var dishes = menuFactory.getDishes();
-          $scope.featured = dishes[0];
-          console.log($scope.featured);
+          $scope.dish = {};
+          menuFactory.getDish(0)
+          .then(
+          function(response){
+                $scope.dish = response.data;
+                $scope.showDish = true;
+              }
+          );
+          console.log($scope.dish);
 
-          var promotions= menuFactory.getPromotion();
-          $scope.promotion = promotions[0];
+          $scope.promotion = menuFactory.getPromotion(0);
           console.log($scope.promotion);
 
-          var leaders = corporateFactory.getLeaders();
-          $scope.chef = leaders[3];
-          console.log($scope.chef);
+          $scope.leader = corporateFactory.getLeader(3);
+          console.log($scope.leader);
 
         }])
 

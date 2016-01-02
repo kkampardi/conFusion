@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('confusionApp')
-
-        .service('menuFactory', function() {
-
+        .constant("baseURL","http://localhost:3000/")
+        .service('menuFactory', ['$http', 'baseURL',
+        function($http,baseURL) {
+/*
             var dishes=[
                          {
                           _id:0,
@@ -174,7 +175,7 @@ angular.module('confusionApp')
                            ]
                         }
                         ];
-            var promotions = [
+*/            var promotions = [
                 {
                           _id:0,
                           name:'Weekend Grand Buffet',
@@ -186,22 +187,22 @@ angular.module('confusionApp')
             ];
 
                 this.getDishes = function(){
-                    return dishes;
+                    return $http.get(baseURL+"dishes");
                 };
 
                 this.getDish = function (index) {
-                    return dishes[index];
+                    return $http.get(baseURL+"dishes/"+index);
                 };
 
                 // implement a function named getPromotion
                 // that returns a selected promotion.
 
-                this.getPromotion = function () {
-                  return promotions;
+                this.getPromotion = function (index) {
+                  return promotions[index];
                 };
 
 
-        })
+        }])
 
         .factory('corporateFactory', function() {
 
