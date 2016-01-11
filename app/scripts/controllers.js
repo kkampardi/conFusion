@@ -66,10 +66,10 @@ angular.module('confusionApp')
       };
   }])
 
-  .controller('DishDetailController', ['$scope', 'routeParams','menuFactory',
-  function($scope, $routeParams, menuFactory) {
-
-      $scope.dish = menuFactory.getDish(3);
+  .controller('DishDetailController', ['$scope', '$stateParams','menuFactory',
+    function($scope, $stateParams, menuFactory) {
+        var dish = menuFactory.getDish(parseint($stateParams.id, 10));
+        $scope.dish = dish;
 
   }])
 
@@ -92,6 +92,15 @@ angular.module('confusionApp')
           //Step 5: reset your JavaScript object that holds your comment
           $scope.review = {rating:5, comment:"", author:"", date:""};
       }
+  }])
+
+
+  .controller('AboutController', ['$scope', function($scope){
+
+  }])
+
+  .controller('IndexController', ['$scope', function($scope){
+
   }])
 
   ;
