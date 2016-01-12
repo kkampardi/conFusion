@@ -9,6 +9,7 @@ angular.module('confusionApp')
       $scope.showDetails = false;
 
       $scope.dishes = menuFactory.getDishes();
+
       $scope.select = function(setTab) {
           $scope.tab = setTab;
 
@@ -95,12 +96,25 @@ angular.module('confusionApp')
   }])
 
 
-  .controller('AboutController', ['$scope', function($scope){
+  .controller('AboutController', ['$scope', 'corporateFactory',
+    function($scope, corporateFactory){
 
+      $scope.leaders = corporateFactory.getLeaders();
+      console.log($scope.leaders);
   }])
 
-  .controller('IndexController', ['$scope', function($scope){
+  .controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory',
+    function($scope, menuFactory, corporateFactory){
 
+        $scope.dish = menuFactory.getDish(0);
+        console.log($scope.dish);
+
+        $scope.promotion = menuFactory.getPromotion(0);
+        console.log($scope.promotion);
+
+
+        $scope.leader = corporateFactory.getLeader(3);
+        console.log($scope.leader);
   }])
 
   ;
