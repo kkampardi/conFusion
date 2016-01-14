@@ -117,7 +117,8 @@ angular.module('confusionApp')
   }])
 
   .controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory',
-      function($scope, menuFactory, corporateFactory){
+    function($scope, menuFactory, corporateFactory){
+
       $scope.showDish = false;
       $scope.message="Loading ...";
       $scope.dish = menuFactory.getDishes().get({id:0})
